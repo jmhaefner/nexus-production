@@ -13,7 +13,7 @@
 RNDSEED=${SLURM_ARRAY_TASK_ID}
 NEVENTS=2000000
 STARTID=$(((RNDSEED-1)*NEVENTS))
-OUTFILE="/n/holyscratch01/guenette_lab/new.th_dep.nexus.${SLURM_ARRAY_TASK_ID}"
+OUTFILE="/n/holyscratch01/guenette_lab/new.tl208_dep.nexus.${SLURM_ARRAY_TASK_ID}.root"
 
 ## Configure scisoft software products
 . /n/holylfs02/LABS/guenette_lab/software/next/scisoft/setup
@@ -22,7 +22,7 @@ setup root   v6_18_04    -q e19:prof
 
 # Configure Geant4 and GATE
 . /n/holylfs02/LABS/guenette_lab/users/jmartinalbo/extsw/geant4/10.02.p03/bin/geant4.sh
-export GATE_DIR=/data4/NEXT/sw/Releases/NEXT_v1_04_00/sources/GATE
+export GATE_DIR=/n/holylfs02/LABS/guenette_lab/users/jmartinalbo/gate-v1_03_00
 export LD_LIBRARY_PATH=${GATE_DIR}/lib:${LD_LIBRARY_PATH}
 
 ## Generate nexus macros
@@ -66,5 +66,5 @@ echo "/nexus/persistency/start_id ${STARTID}"                   >> ${CFG_MACRO}
 echo "/nexus/persistency/outputFile ${OUTFILE}"                 >> ${CFG_MACRO}
 echo " "                                                        >> ${CFG_MACRO}
 
-/n/holylfs02/LABS/guenette_lab/users/jmartinalbo/nexus-v5_03_07/nexus -b -n ${NEVENTS} ${INI_MACRO}
-cp "${OUTFILE}.h5" /n/holylfs02/LABS/guenette_lab/data/NEXT
+time /n/holylfs02/LABS/guenette_lab/users/jmartinalbo/nexus-v5_03_07/nexus -b -n ${NEVENTS} ${INI_MACRO}
+cp ${OUTFILE} /n/holylfs02/LABS/guenette_lab/data/NEXT/
