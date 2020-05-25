@@ -5,14 +5,14 @@
 #SBATCH -N 1                # All cores on one machine
 #SBATCH -p guenette         # Partition
 #SBATCH --mem 500           # Memory request (Mb)
-#SBATCH -t 0-2:00           # Maximum execution time (D-HH:MM)
+#SBATCH -t 0-03:00          # Maximum execution time (D-HH:MM)
 #SBATCH -o %A_%a.out        # Standard output
 #SBATCH -e %A_%a.err        # Standard error
 
 ## Job options
 RNDSEED=${SLURM_ARRAY_TASK_ID}
 NEVENTS=1000
-STARTID=$((RNDSEED*1000))
+STARTID=$(((RNDSEED-1)*NEVENTS))
 OUTFILE="/n/holyscratch01/guenette_lab/new.kr83m.nexus.${SLURM_ARRAY_TASK_ID}"
 
 ## Configure scisoft software products
@@ -48,14 +48,15 @@ echo "/Geometry/NextNew/sc_yield 25510. 1/MeV"                  >> ${CFG_MACRO}
 echo "/Geometry/NextNew/EL_field 12.8 kilovolt/cm"              >> ${CFG_MACRO}
 echo "/Geometry/NextNew/drift_transv_diff 1.2 mm/sqrt(cm)"      >> ${CFG_MACRO}
 echo "/Geometry/NextNew/drift_long_diff   0.3 mm/sqrt(cm)"      >> ${CFG_MACRO}
+echo "/Geometry/NextNew/e_lifetime 11.8 ms"                     >> ${CFG_MACRO}
 echo "/Geometry/NextNew/elfield true"                           >> ${CFG_MACRO}
-echo "/Geometry/NextNew/max_step_size 1. m"                     >> ${CFG_MACRO}
+echo "/Geometry/NextNew/max_step_size 1. mm"                    >> ${CFG_MACRO}
 echo "/Geometry/PmtR11410/SD_depth 4"                           >> ${CFG_MACRO}
 echo "/Geometry/PmtR11410/time_binning 1. nanosecond"           >> ${CFG_MACRO}
 echo "/Geometry/SiPMSensl/time_binning 1. microsecond"          >> ${CFG_MACRO}
 echo "/Geometry/KDB/teflon_masks true"                          >> ${CFG_MACRO}
-echo "/PhysicsList/Nexus/clustering true"                       >> ${CFG_MACRO}
-echo "/PhysicsList/Nexus/drift true"                            >> ${CFG_MACRO}
+echo "/PhysicsList/Nexus/clustering          true"              >> ${CFG_MACRO}
+echo "/PhysicsList/Nexus/drift               true"              >> ${CFG_MACRO}
 echo "/PhysicsList/Nexus/electroluminescence true"              >> ${CFG_MACRO}
 echo "/nexus/random_seed ${RNDSEED}"                            >> ${CFG_MACRO}
 echo "/nexus/persistency/start_id ${STARTID}"                   >> ${CFG_MACRO}
