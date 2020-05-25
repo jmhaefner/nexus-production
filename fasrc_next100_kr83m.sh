@@ -16,7 +16,7 @@ STARTID=$(((RNDSEED-1)*NEVENTS))
 OUTFILE="/n/holyscratch01/guenette_lab/jmartinalbo/next100.kr83m.nexus.${SLURM_ARRAY_TASK_ID}"
 
 ## Configure scisoft software products
-. /n/holylfs02/LABS/guenette_lab/software/next/scisoft/setup
+. /n/holystore01/LABS/guenette_lab/Lab/software/next/scisoft/setup
 setup hdf5   v1_10_5     -q e19
 setup root   v6_18_04    -q e19:prof
 setup geant4 v4_10_6_p01 -q e19:prof
@@ -62,5 +62,5 @@ echo "/nexus/persistency/start_id ${STARTID}"                   >> ${CFG_MACRO}
 echo "/nexus/persistency/outputFile ${OUTFILE}"                 >> ${CFG_MACRO}
 echo " "                                                        >> ${CFG_MACRO}
 
-/n/holylfs02/LABS/guenette_lab/software/next/nexus/nexus-v6_00_00/build/source/nexus -b -n ${NEVENTS} ${INI_MACRO}
+/n/holystore01/LABS/guenette_lab/Lab/software/next/nexus/nexus-v6_00_00/build/source/nexus -b -n ${NEVENTS} ${INI_MACRO}
 cp "${OUTFILE}.h5" /n/holystore01/LABS/guenette_lab/Lab/data/NEXT/NEXT100/sim/kr83m/20200525/nexus
