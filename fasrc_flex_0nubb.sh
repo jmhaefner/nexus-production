@@ -11,8 +11,8 @@
 
 ## Job options
 RNDSEED=$(( SLURM_ARRAY_TASK_ID+1 ))
-PRODNUM=20200620
-NEVENTS=1
+PRODNUM=20200624
+NEVENTS=10
 STARTID=$(( SLURM_ARRAY_TASK_ID*NEVENTS ))
 OUTFILE="/n/holyscratch01/guenette_lab/jmartinalbo/flex.e-_roi.${SLURM_ARRAY_TASK_ID}.nexus"
 
@@ -121,4 +121,4 @@ echo "/nexus/persistency/start_id ${STARTID}"                   >> ${CFG_MACRO}
 echo "/nexus/persistency/outputFile ${OUTFILE}"                 >> ${CFG_MACRO}
 
 time /n/holystore01/LABS/guenette_lab/Lab/software/next/nexus/nexus-flex.20200619/build/source/nexus -b -n ${NEVENTS} ${INI_MACRO}
-cp "${OUTFILE}.h5" /n/holystore01/LABS/guenette_lab/Lab/data/NEXT/FLEX/${PRODNUM}/nexus
+cp "${OUTFILE}.h5" /n/holystore01/LABS/guenette_lab/Lab/data/NEXT/FLEX/0nubb/${PRODNUM}/nexus
